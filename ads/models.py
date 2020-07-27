@@ -9,6 +9,7 @@ class Ad(models.Model):
 							validators=[MinLengthValidator(2, "This must be greater than 2 characters")])
 	text = models.TextField()
 	owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	price = models.DecimalField(max_digits=9, decimal_places=2, null=True)
 
 	picture = models.BinaryField(null=True, blank=True, editable=True)
 	content_type = models.CharField(max_length=256, null=True, blank=True, help_text="The MIMEtype of the file")
