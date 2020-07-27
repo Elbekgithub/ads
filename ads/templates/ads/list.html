@@ -3,7 +3,7 @@
 <h1>Ads</h1>
 <div style="float:right">
 <!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
-<form>
+<form action="/ad/nnn" method="GET">
   <input type="text" placeholder="Search.." name="search"
   {% if search %} value="{{ search }}" {% endif %}
   >
@@ -45,7 +45,7 @@
         </span>
         </a>
         {% endif %}
-        
+
 
         <div style="left:10px">
             {% if ad.text|length < 100 %}
