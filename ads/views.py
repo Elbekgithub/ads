@@ -8,6 +8,8 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.db.models import Q
 
 from ads.models import Ad, Comment, Fav
 from ads.forms import CreateForm,CommentForm
@@ -22,7 +24,26 @@ class AdListView(ListView):
 			# rows = [{'id': 2}]  (A list of rows)
 			rows = request.user.favorite_ads.values('id')
 			favorites = [ row['id'] for row in rows ]
-		ctx = {'ad_list' : ad_list, 'favorites': favorites}
+
+		strval =  request.GET.get("search", False)
+		if strval :
+			# Simple title-only search
+			# objects = Post.objects.filter(title__contains=strval).select_related().order_by('-updated_at')[:10]
+
+			# Multi-field search
+			query = Q(title__contains=strval)
+			query.add(Q(text__contains=strval), Q.OR)
+			ad_list = Ad.objects.filter(query).select_related().order_by('-updated_at')[:10]
+		else :
+			# try both versions with > 4 posts and watch the queries that happen
+			ad_list = Ad.objects.all().order_by('-updated_at')[:10]
+			# objects = Post.objects.select_related().all().order_by('-updated_at')[:10]
+
+		# Augment the post_list
+		for ad in ad_list:
+			ad.natural_updated = naturaltime(ad.updated_at)
+
+		ctx = {'ad_list' : ad_list, 'favorites': favorites, 'search': strval}
 		retval = render(request, self.template_name, ctx)
 		return retval
 
