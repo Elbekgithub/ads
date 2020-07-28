@@ -15,7 +15,6 @@ from ads.models import Ad, Comment, Fav
 from ads.forms import CreateForm,CommentForm
 
 class AdListView(View):
-	model = Ad
 	template_name = "ads/list.html"
 	def get(self, request) :
 		ad_list = Ad.objects.all()
