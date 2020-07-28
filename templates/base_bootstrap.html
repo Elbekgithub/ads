@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
 <!-- Edit dj4e-samples/settings.py and add APP_NAME = 'DJ4E Samples' or similar -->
@@ -16,18 +17,26 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/v4-shims.css">
 
 <meta name="dj4e-version" content="2020-03-26">
+<style type="text/css">
+  .navbar{
+    font-size: 16px;
+  }
+</style>
 
 {% block head %} {% endblock %}
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="{% url 'ads:all' %}">Apps</a>
+  <a class="navbar-brand py-0 px-1" href="#" style="border: 1px solid white; border-radius: 3px;">
+    <span >
+    <img src="{% static 'android-chrome-512x512.png' %}" class="my-0 d-inline-block align-top" width="33" height="30" alt="" loading="lazy"></span>
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse ml-5 pl-3" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'ads:all' %}">Ads<span class="sr-only">(current)</span></a>
