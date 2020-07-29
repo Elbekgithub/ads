@@ -24,6 +24,10 @@ urlpatterns += [
             'document_root': os.path.join(BASE_DIR, 'ads/static'),
         }
     ),
+    url(r'^static/(?P<path>.*)$', serve,
+        {'document_root': os.path.join(BASE_DIR, 'ads/static'), 'show_indexes': True},
+        name='static'
+    ),
 ]
 
 # Switch to social login if it is configured - Keep for later
