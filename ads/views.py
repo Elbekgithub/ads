@@ -24,21 +24,6 @@ class AdListView(View):
 			rows = request.user.favorite_ads.values('id')
 			favorites = [ row['id'] for row in rows ]
 
-		ctx = {'ad_list' : ad_list, 'favorites': favorites}
-		retval = render(request, self.template_name, ctx)
-		return retval
-
-
-class FormView(View):
-	template_name = "ads/list.html"
-	def get(self, request) :
-		ad_list = Ad.objects.all()
-		favorites = list()
-		if request.user.is_authenticated:
-			# rows = [{'id': 2}]  (A list of rows)
-			rows = request.user.favorite_ads.values('id')
-			favorites = [ row['id'] for row in rows ]
-
 		strval =  request.GET.get("search", False)
 		if strval :
 			# Simple title-only search
@@ -60,7 +45,6 @@ class FormView(View):
 		ctx = {'ad_list' : ad_list, 'favorites': favorites, 'search': strval}
 		retval = render(request, self.template_name, ctx)
 		return retval
-
 
 class AdDetailView(DetailView):
 	model = Ad

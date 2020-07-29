@@ -10,7 +10,6 @@ app_name='ads'
 
 urlpatterns = [
     path('', views.AdListView.as_view(), name='all'),
-    path('ad/nnn', views.FormView.as_view(), name='form_view'),
     path('ads/<int:pk>', views.AdDetailView.as_view(), name='ad_detail'),
     path('ads/create', 
         views.AdCreateView.as_view(success_url=reverse_lazy('ads:all')), name='ad_create'),
